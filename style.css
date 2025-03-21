@@ -3,18 +3,19 @@ body {
     margin: 0;
 }
 
-button{
+button, .put{
     font-family: "Press Start 2P", serif;
     width: 300px;
 }
 
-.clicker {
+.clicker, .casino {
     width: 800px;
     margin: 0 auto;
+    margin-bottom: 150px;
     justify-items: center;
 }
 
-.clicker button {
+.clicker button , .put{
     background-color: cornflowerblue;
 }
 
@@ -88,5 +89,34 @@ h1{
     position:fixed;
     top: 0;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.roulet {
+    width: 50px;
+    height: 40px;
+    background-color: black;
+}
+
+input[type = "radio"] {
+    border-radius: 0%;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+}
+
+input[type = "radio"]:checked {
+    border: 3px blue solid;
+}
+
+#red {
+    background-color: red;
+}
+
+#black {
+    background-color: black;
+}
+
+.red {
+    background-color: red;
 }
 

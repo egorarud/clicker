@@ -1,5 +1,6 @@
 import { COSTS } from "./const";
 import { getData, resetData, setData } from "./data";
+import { putHandler } from "./casino";
 
 const mainButton = document.querySelector('.click');
 const points = document.querySelector('.points');
@@ -11,10 +12,11 @@ const updateIntervalCostText = document.querySelector('.cost');
 const shopButton = document.querySelector('.shop-button');
 const modal = document.querySelector('.modal-bg');
 const closeModal = document.querySelector('.close-modal');
+const form = document.querySelector('form');
 
 let count = getData('count');
-// let strong = getData('strong');
-let strong = 100;
+let strong = getData('strong');
+// let strong = 100;
 let isAutoClickButtonActive = getData('autoclick');
 
 let intervalId = null;
@@ -123,4 +125,8 @@ autoClickButton.addEventListener('click', autoClickButtonClickHandler);
 reset.addEventListener('click', resetHandler);
 updateIntervalButton.addEventListener('click', updateIntervalButtonClickHandler);
 shopButton.addEventListener('click', shopButtonClickHandler);
-closeModal.addEventListener('click', closeModalHandler)
+closeModal.addEventListener('click', closeModalHandler);
+form.addEventListener('submit', async (evt) => {
+    const value = await putHandler(evt, count);
+    updatePoints(value);
+});
