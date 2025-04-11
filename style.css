@@ -11,8 +11,13 @@ button, .put{
 .clicker, .casino {
     width: 800px;
     margin: 0 auto;
-    margin-bottom: 150px;
+    margin-bottom: 350px;
+    margin-top: 70px;
     justify-items: center;
+}
+
+.main {
+    position: relative;
 }
 
 .clicker button , .put{
@@ -120,3 +125,19 @@ input[type = "radio"]:checked {
     background-color: red;
 }
 
+.points-change {
+    transition: opacity 1s;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.casino {
+    background-color: white;
+    transition: background-color 1s;
+}
+
+.active {
+    background-color: blue;
+}

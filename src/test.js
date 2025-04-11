@@ -3,7 +3,7 @@ import { getData, resetData, setData } from "./data";
 import { putHandler } from "./casino";
 
 const mainButton = document.querySelector('.click');
-const points = document.querySelector('.points');
+const points = document.querySelector('.points-count');
 const doubleButton = document.querySelector('.double-click');
 const autoClickButton = document.querySelector('.auto-click');
 const reset = document.querySelector('.reset');
@@ -13,6 +13,9 @@ const shopButton = document.querySelector('.shop-button');
 const modal = document.querySelector('.modal-bg');
 const closeModal = document.querySelector('.close-modal');
 const form = document.querySelector('form');
+const span = document.querySelector('.points-change');
+const cliker = document.querySelector('.main');
+const casino = document.querySelector('.casino');
 
 let count = getData('count');
 let strong = getData('strong');
@@ -22,7 +25,9 @@ let isAutoClickButtonActive = getData('autoclick');
 let intervalId = null;
 let autoClickTime = getData('autoclickTime');
 let updateIntervalCount = getData('updateCount');
-let isUptadeDisabled = getData('update'); 
+let isUptadeDisabled = getData('update');
+
+let y = 0;
 
 points.textContent = count;
 
@@ -128,5 +133,55 @@ shopButton.addEventListener('click', shopButtonClickHandler);
 closeModal.addEventListener('click', closeModalHandler);
 form.addEventListener('submit', async (evt) => {
     const value = await putHandler(evt, count);
+    if (value > 0) {
+      span.textContent = `+${value}`;
+      span.style.color = 'green';
+    } else {
+      span.textContent = value;
+      span.style.color = 'red';
+    }
+    span.classList.remove('hide');
+
+    intervalId = setTimeout(() => span.classList.add('hide'), 1000);
+    intervalId = setTimeout(() => span.textContent = '', 2000);
+
     updatePoints(value);
 });
+
+
+let options = {
+  rootMargin: "0px",
+  threshold: 1,
+};
+
+const callback = (entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    } else {
+      entry.target.classList.remove('active');
+    }
+  });
+}
+
+let observer = new IntersectionObserver(callback, options)
+
+let target = document.querySelector(".casino");
+observer.observe(target); 
+
+window.onscroll = function () {
+
+}
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > y) {
+    window.scrollTo(0, 630);
+    cliker.style.top = '450px';
+  }
+  if (window.scrollY < y) {
+    window.scrollTo(0, 0);
+    cliker.style.top = '0px';
+  }
+
+  y = window.scrollY;
+})
